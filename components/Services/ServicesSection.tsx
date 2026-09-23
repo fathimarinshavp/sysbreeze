@@ -1,0 +1,169 @@
+"use client";
+import { motion } from "framer-motion";
+import ScrollTriggeredCards from "../Ui/ScrollTriggeredCards/ScrollTriggeredCards";
+import { useRouter } from "next/navigation";
+
+const services = [
+    {
+        icon: "fa-palette",
+        title: "BRANDING",
+        subtitle: "Turn Your Vision into a Powerful Brand Identity",
+        description: "We craft unique brand identities that resonate with your target audience and stand out in competitive markets. Our comprehensive approach includes logo design, color palette selection, typography, and brand messaging. We ensure every touchpoint reflects your core values and business mission. From initial concept to full brand guidelines, we build the foundation for your long-term success. Let us help you create an unforgettable impression that drives loyalty and trust.",
+        bgColor: "#6339f9",
+        href: "/branding-services-kerala"
+    },
+    {
+        icon: "fa-bullhorn",
+        title: "DIGITAL MARKETING",
+        subtitle: "Reach the Right Audience. Convert Better. Grow Faster.",
+        description: "Our data-driven marketing strategies are designed to maximize your ROI and accelerate business growth. We combine SEO, content marketing, social media management, and pay-per-click advertising to reach your ideal customers. We constantly monitor performance metrics to optimize campaigns for higher conversion rates and better engagement. Our team stays ahead of industry trends to ensure your brand remains relevant and competitive. Transform your digital presence into a powerful lead generation engine.",
+        bgColor: "#ff3d64",
+        href: "/seo-services-kerala"
+    },
+    {
+        icon: "fa-users-gear",
+        title: "HR MANAGEMENT",
+        subtitle: "People. Process. Performance.",
+        description: "Optimize your workforce with our professional human resource management solutions tailored to your specific needs. We handle talent acquisition, employee onboarding, performance evaluations, and strategic workforce planning. Our goal is to foster a productive work environment that inspires peak performance and long-term employee retention. We ensure compliance with labor laws while implementing best practices in organizational development and culture. Scale your business with the right people and efficient management systems.",
+        bgColor: "#00c4ff",
+        href: "/hr-management-services-kerala"
+    },
+    {
+        icon: "fa-globe",
+        title: "WEB DESIGN AND DEVELOPMENT",
+        subtitle: "Websites That Look Great & Work Even Better",
+        description: "We build high-performance, responsive websites that combine aesthetic excellence with seamless user experience. Our development process focuses on speed, security, and search engine optimization to ensure your site performs under pressure. We use the latest technologies like React and Next.js to provide a modern, future-proof digital platform for your business. Every element is carefully crafted to guide visitors toward conversion while reflecting your brand's unique identity. Establish a professional online presence that works for you 24/7.",
+        bgColor: "#ff9100",
+        href: "/web-development-kerala"
+    },
+    {
+        icon: "fa-cart-shopping",
+        title: "E-COMMERCE DEVELOPMENT",
+        subtitle: "Sell Online Without Limits",
+        description: "Launch and scale your online store with our robust ecommerce solutions designed for growth and reliability. We provide secure payment gateway integration, intuitive product management, and optimized checkout flows to reduce cart abandonment. Our platforms are built to handle high traffic and complex inventory needs while maintaining lightning-fast performance. We focus on mobile-first design, ensuring your customers can shop effortlessly from any device. Take your retail business to the global market with a scalable and secure online store.",
+        bgColor: "#00d166",
+        href: "/ecommerce-development-kerala"
+    },
+    {
+        icon: "fa-mobile-screen-button",
+        title: "MOBILE APPLICATION",
+        subtitle: "Apps That Engage, Perform & Scale",
+        description: "Create powerful mobile experiences with our custom iOS and Android app development services for modern businesses. We design intuitive user interfaces that promote engagement and provide exceptional value to your mobile users. Our team focuses on native-like performance and smooth animations to ensure a premium feel across all screen sizes. From initial wireframes to App Store deployment, we handle every stage of the mobile app lifecycle. Build a direct and meaningful connection with your audience through a feature-rich mobile app.",
+        bgColor: "#8e24aa",
+        href: "/mobile-app-development-kerala"
+    }
+];
+
+export default function ServicesSection() {
+    const router = useRouter();
+
+    return (
+        <section className="py-6 md:py-12 bg-black overflow-clip no-scrollbar" id="services">
+            <div className="max-w-[1720px] mx-auto px-0 md:px-6">
+                <div className="text-center mb-6 md:mb-12 lg:mb-20 px-6">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        className="w-fit mx-auto flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 mb-4"
+                    >
+                        <span className="w-2 h-2 rounded-full bg-[#c1227d] animate-pulse"></span>
+                        <span className="text-xs font-bold tracking-[0.2em] uppercase text-white/80">
+                            Our Services
+                        </span>
+                    </motion.div>
+                    <motion.h2
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-none"
+                    >
+                        Smart Solutions That Drive Real Results
+                    </motion.h2>
+                </div>
+
+                {/* Mobile & Tablet: Scroll Triggered List Effect */}
+                <div className="lg:hidden px-4 relative -top-20">
+                    <ScrollTriggeredCards services={services} />
+                </div>
+
+                {/* Desktop: Grid Layout */}
+                <div className="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 max-w-[1600px] mx-auto px-6">
+                    {services.map((service, index) => (
+                        <motion.div
+                            key={index}
+                            onClick={() => router.push(service.href)}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            whileHover={{
+                                y: -10,
+                                transition: { duration: 0.3, ease: "easeOut" }
+                            }}
+                            className="relative group h-[550px] rounded-[40px] overflow-hidden border border-white/10 shadow-2xl bg-gradient-to-br from-[#D81B8C] via-[#612D91] to-[#21094E] cursor-pointer"
+                        >
+                            {/* Hover Overlay Glow */}
+                            <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                            <ServiceCardContent service={service} index={index} isGrid />
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function ServiceCardContent({ service, index = 0, isGrid = false }: { service: typeof services[0], index?: number, isGrid?: boolean }) {
+    const displayIndex = (index + 1).toString().padStart(2, '0');
+    const router = useRouter();
+    return (
+        <>
+            {/* Aesthetic Background Elements - Keeping it premium with subtle light blurs */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl group-hover:bg-white/10 transition-colors duration-500" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl group-hover:bg-white/10 transition-colors duration-500" />
+
+            <div className={`relative z-10 flex flex-col items-center text-center pt-12 pb-8 px-6 text-white h-full ${!isGrid ? 'md:flex-row md:text-left' : ''}`}>
+                {/* Number Indicator - Visible in full list, hidden in grid by default or repositioned */}
+                <div className={`absolute top-8 right-8 opacity-20 font-black text-4xl tracking-tighter text-white/50 ${!isGrid ? 'hidden' : 'block'}`}>
+                    {displayIndex}
+                </div>
+
+                <div className={`flex-1 flex flex-col items-center h-full ${!isGrid ? 'md:pr-12' : ''}`}>
+                    {/* Icon - Prominent on desktop cards */}
+                    {isGrid && (
+                        <div className="mb-8 w-24 h-24 flex items-center justify-center rounded-3xl bg-white/10 border border-white/20 backdrop-blur-md group-hover:scale-110 transition-transform duration-500">
+                            <i className={`fa-solid ${service.icon} text-4xl text-white`}></i>
+                        </div>
+                    )}
+
+                    <h3 className={`${isGrid ? 'text-3xl lg:text-3xl px-4' : 'text-4xl md:text-5xl lg:text-7xl'} font-black mb-4 leading-none  uppercase text-white group-hover:text-pink-200 transition-colors`}>
+                        {service.title}
+                    </h3>
+
+                    <p className={`text-white/90 ${isGrid ? 'text-base font-bold' : 'text-xl md:text-2xl font-medium'} max-w-xl mb-4 leading-tight uppercase tracking-wide`}>
+                        {service.subtitle}
+                    </p>
+
+                    <p className={`text-white/70 ${isGrid ? 'text-[13px] line-clamp-4' : 'text-sm md:text-lg'} max-w-md ${isGrid ? 'block' : 'hidden md:block'} mb-auto`}>
+                        {service.description}
+                    </p>
+
+                    <div className="mt-8">
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                router.push(service.href);
+                            }}
+                            className="px-8 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-white font-bold text-xs tracking-widest uppercase transition-colors backdrop-blur-sm group/btn flex items-center gap-2"
+                        >
+                            Explore More
+                            <i className="fa-solid fa-arrow-right-long transition-transform group-hover/btn:translate-x-1"></i>
+                        </motion.button>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+}

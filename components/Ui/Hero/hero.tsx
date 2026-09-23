@@ -1,0 +1,268 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+import { ScrollVelocity } from "../../ScrollVelocity/ScrollVelocity";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+
+
+const faces = [
+    { name: "SYSBREEZE", x: 0, y: 0 },
+    { name: "IT SERVICES", x: 0, y: -90 },
+    { name: "MARKETING", x: 0, y: -180 },
+    { name: "HR MANAGEMENT", x: 0, y: -270 },
+    { name: "BUSINESS CONSULTING", x: -90, y: 0 },
+    { name: "TRAINING PROGRAMS", x: 90, y: 0 },
+];
+
+export default function Hero() {
+    const [currentFace, setCurrentFace] = useState(0);
+    const [rotationY, setRotationY] = useState(0);
+    const [rotationX, setRotationX] = useState(15);
+
+    useEffect(() => {
+        let isMounted = true;
+        const sequence = async () => {
+            if (!isMounted) return;
+
+            // 1. Initial State / Pause
+            await new Promise(r => setTimeout(r, 2000));
+            if (!isMounted) return;
+
+            // 2. Transition to Top Corner View (Tilt up + rotate 45 deg)
+            setRotationX(35);
+            setRotationY(prev => prev - 45);
+            await new Promise(r => setTimeout(r, 2000));
+            if (!isMounted) return;
+
+            // 3. Direct Tilt to Bottom Corner View (Tilt down, stay at 45 deg)
+            setRotationX(-35);
+            await new Promise(r => setTimeout(r, 2000));
+            if (!isMounted) return;
+
+            // 4. Final Step: Transition to Next Face (Restore base tilt + rotate last 45 deg)
+            setRotationX(15);
+            setRotationY(prev => prev - 45);
+
+            // Increment face index for opacity/content tracking
+            // We use % 6 if we want to loop through all faces, 
+            // but the Y-belt only has 4 faces in this structure.
+            // If we want to include top/bottom, we'd need a more complex sequence.
+            // For now, let's stick to the 4 horizontal faces as per the snippet's logic.
+            setCurrentFace(prev => (prev + 1) % 4);
+
+            // Loop recursively
+            if (isMounted) sequence();
+        };
+
+        sequence();
+        return () => { isMounted = false; };
+    }, []);
+
+    const router = useRouter();
+    return (
+        <section className="relative h-full w-full bg-black overflow-hidden flex flex-col items-center justify-center pt-20">
+            {/* Background Marquee */}
+            {/* <div className="absolute inset-0 z-0 pointer-events-none flex flex-col justify-center opacity-50 select-none">
+                <ScrollVelocity
+                    texts={["SYSBREEZE TECHNOLOGIES PVT. LTD. | DIGITAL INNOVATION | BUSINESS SERVICES | FUTURE TECH"]}
+                    velocity={50}
+                    className="text-[20vw] font-black text-white uppercase "
+                />
+            </div> */}
+
+
+            {/* 3D Cube Container */}
+            <div className="relative z-10 w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 perspective-1000 mt-28 md:mt-20 ">
+                <motion.div
+                    className="w-full h-full relative preserve-3d"
+                    animate={{
+                        rotateX: rotationX,
+                        rotateY: rotationY,
+                    }}
+                    transition={{
+                        duration: 2,
+                        ease: [0.22, 1, 0.36, 1],
+                    }}
+                >
+                    {/* Cube Faces */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#D81B8C] via-[#612D91] to-[#21094E] border border-white/20 face-front backdrop-blur-sm overflow-hidden group">
+                        <div className="absolute top-2 left-2 w-12 h-12 z-20">
+                            <Image
+                                src="/Gemini_Generated_Image_bmzwfebmzwfebmzw-removebg-preview.svg"
+                                alt="Sysbreeze Trusted Partner Logo"
+                                width={48}
+                                height={48}
+                                className="w-full h-full object-contain"
+                            />
+                        </div>
+                        <motion.div
+                            animate={{ opacity: currentFace === 0 ? 1 : 0.4 }}
+                            className="flex flex-col items-center justify-center w-full h-full p-6 text-center"
+                        >
+                            <h1 className="text-white/80 text-xl md:text-2xl leading-tight tracking-[0.2em] font-medium">BEST IT COMPANY IN CALICUT</h1>
+                        </motion.div>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#D81B8C] via-[#612D91] to-[#21094E] border border-white/20 face-back backdrop-blur-sm  group">
+                        <div className="absolute top-2 left-2 w-12 h-12 z-20">
+                            <Image
+                                src="/Gemini_Generated_Image_bmzwfebmzwfebmzw-removebg-preview.svg"
+                                alt="Sysbreeze Trusted Partner Logo"
+                                width={48}
+                                height={48}
+                                className="w-full h-full object-contain"
+                            />
+                        </div>
+                        <motion.div
+                            animate={{ opacity: currentFace === 2 ? 1 : 0.4 }}
+                            className="flex flex-col items-center justify-center w-full h-full p-6 text-center"
+                        >
+                            <h3 className="text-white font-black text-2xl md:text-3xl tracking-tighter mb-4">MARKETING</h3>
+                            <p className="text-white/80 text-[10px] md:text-xs leading-tight tracking-[0.2em] uppercase font-medium">Reach the Right Audience. Convert Better. Grow Faster.</p>
+                        </motion.div>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#D81B8C] via-[#612D91] to-[#21094E] border border-white/20 face-left backdrop-blur-sm overflow-hidden group">
+                        <div className="absolute top-2 left-2 w-12 h-12 z-20">
+                            <Image
+                                src="/Gemini_Generated_Image_bmzwfebmzwfebmzw-removebg-preview.svg"
+                                alt="Sysbreeze Trusted Partner Logo"
+                                width={48}
+                                height={48}
+                                className="w-full h-full object-contain"
+                            />
+                        </div>
+                        <motion.div
+                            animate={{ opacity: currentFace === 3 ? 1 : 0.4 }}
+                            className="flex flex-col items-center justify-center w-full h-full p-6 text-center"
+                        >
+                            <h3 className="text-white font-black text-2xl md:text-3xl tracking-tighter mb-4 uppercase">HR MANAGEMENT</h3>
+                            <p className="text-white/80 text-[10px] md:text-xs leading-tight tracking-[0.2em] uppercase font-medium">People. Process. Performance.</p>
+                        </motion.div>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#D81B8C] via-[#612D91] to-[#21094E] border border-white/20 face-right backdrop-blur-sm overflow-hidden group">
+                        <div className="absolute top-2 left-2 w-12 h-12 z-20">
+                            <Image
+                                src="/Gemini_Generated_Image_bmzwfebmzwfebmzw-removebg-preview.svg"
+                                alt="Sysbreeze Trusted Partner Logo"
+                                width={48}
+                                height={48}
+                                className="w-full h-full object-contain"
+                            />
+                        </div>
+                        <motion.div
+                            animate={{ opacity: currentFace === 1 ? 1 : 0.4 }}
+                            className="flex flex-col items-center justify-center w-full h-full p-6 text-center"
+                        >
+                            <h3 className="text-white font-black text-2xl md:text-3xl tracking-tighter mb-4">IT SERVICES</h3>
+                            <p className="text-white/80 text-[10px] md:text-xs leading-tight tracking-[0.2em] uppercase font-medium">Websites That Look Great & Work Even Better</p>
+                        </motion.div>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#D81B8C] via-[#612D91] to-[#21094E] border border-white/20 face-top backdrop-blur-sm overflow-hidden group">
+                        <div className="absolute top-2 left-2 w-12 h-12 z-20">
+                            <Image
+                                src="/Gemini_Generated_Image_bmzwfebmzwfebmzw-removebg-preview.svg"
+                                alt="Sysbreeze Trusted Partner Logo"
+                                width={48}
+                                height={48}
+                                className="w-full h-full object-contain"
+                            />
+                        </div>
+                        <motion.div
+                            animate={{ opacity: currentFace === 4 ? 1 : 0.4 }}
+                            className="flex flex-col items-center justify-center w-full h-full p-6 text-center"
+                        >
+                            <h3 className="text-white font-black text-2xl md:text-3xl tracking-tighter mb-4 uppercase">BUSINESS CONSULTING</h3>
+                            <p className="text-white/80 text-[10px] md:text-xs leading-tight tracking-[0.2em] uppercase font-medium">Turn Your Vision into a Powerful Brand Identity</p>
+                        </motion.div>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#D81B8C] via-[#612D91] to-[#21094E] border border-white/20 face-bottom backdrop-blur-sm overflow-hidden group">
+                        <div className="absolute top-2 left-2 w-12 h-12 z-20">
+                            <Image
+                                src="/Gemini_Generated_Image_bmzwfebmzwfebmzw-removebg-preview.svg"
+                                alt="Sysbreeze Trusted Partner Logo"
+                                width={48}
+                                height={48}
+                                className="w-full h-full object-contain"
+                            />
+                        </div>
+                        <motion.div
+                            animate={{ opacity: currentFace === 5 ? 1 : 0.4 }}
+                            className="flex flex-col items-center justify-center w-full h-full p-6 text-center"
+                        >
+                            <h3 className="text-white font-black text-2xl md:text-3xl tracking-tighter mb-4 uppercase">TRAINING PROGRAMS</h3>
+                            <p className="text-white/80 text-[10px] md:text-xs leading-tight tracking-[0.2em] uppercase font-medium">Industry-Focused Training for Real Careers</p>
+                        </motion.div>
+                    </div>
+                </motion.div>
+            </div>
+
+            {/* Buttons Positioning Below Cube */}
+            <div className="relative z-20 mt-28 md:mt-24 w-full flex flex-col md:flex-row gap-4 md:gap-8 items-center justify-center px-6">
+                <motion.button
+                    onClick={() => {
+                        router.push("/services")
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-fit md:w-auto flex items-center gap-3 bg-gradient-to-r from-[#D81B8C] via-[#612D91] to-[#21094E] border border-white/20 pl-2 pr-6 md:pr-8 py-2 rounded-full shadow-[0_10px_40px_-10px_rgba(216,27,140,0.55)] hover:shadow-[0_0_45px_rgba(216,27,140,0.45)] transition-all duration-300 group"
+                >
+                    <div className="w-8 h-8 md:w-10 md:h-10 bg-white/15 backdrop-blur-md border border-white/25 rounded-full flex items-center justify-center text-white text-sm md:text-lg group-hover:rotate-45 group-hover:bg-white transition-all duration-300 group-hover:text-black">
+                        <i className="fa-solid fa-arrow-right"></i>
+                    </div>
+                    <span className="text-white font-black tracking-tight text-sm md:text-lg whitespace-nowrap uppercase">GROW YOUR BUSINESS</span>
+                </motion.button>
+
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    onClick={() => {
+                        router.push("/trainings")
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-fit md:w-auto flex items-center gap-3 bg-gradient-to-r from-[#D81B8C] via-[#612D91] to-[#21094E] border border-white/20 pl-2 pr-6 md:pr-8 py-2 rounded-full shadow-[0_10px_40px_-10px_rgba(216,27,140,0.55)] hover:shadow-[0_0_45px_rgba(216,27,140,0.45)] transition-all duration-300 group"
+                >
+                    <div className="w-8 h-8 md:w-10 md:h-10 bg-white/15 backdrop-blur-md border border-white/25 rounded-full flex items-center justify-center text-white text-sm md:text-lg group-hover:rotate-45 group-hover:bg-white transition-all duration-300 group-hover:text-black">
+                        <i className="fa-solid fa-arrow-right"></i>
+                    </div>
+                    <span className="text-white font-black tracking-tight text-sm md:text-lg whitespace-nowrap uppercase">UPGRADE YOUR SKILLS</span>
+                </motion.button>
+            </div>
+
+            <style jsx global>{`
+        .perspective-1000 {
+          perspective: 1200px;
+        }
+        .preserve-3d {
+          transform-style: preserve-3d;
+        }
+        
+        /* Desktop Face Transforms (160px = 320px cube / 2) */
+        .face-front  { transform: rotateY(  0deg) translateZ(160px); }
+        .face-back   { transform: rotateY(180deg) translateZ(160px); }
+        .face-right  { transform: rotateY( 90deg) translateZ(160px); }
+        .face-left   { transform: rotateY(-90deg) translateZ(160px); }
+        .face-top    { transform: rotateX( 90deg) translateZ(160px); }
+        .face-bottom { transform: rotateX(-90deg) translateZ(160px); }
+
+        /* Mobile Face Transforms (128px = 256px cube / 2) */
+        @media (max-width: 768px) {
+          .face-front  { transform: rotateY(  0deg) translateZ(128px); }
+          .face-back   { transform: rotateY(180deg) translateZ(128px); }
+          .face-right  { transform: rotateY( 90deg) translateZ(128px); }
+          .face-left   { transform: rotateY(-90deg) translateZ(128px); }
+          .face-top    { transform: rotateX( 90deg) translateZ(128px); }
+          .face-bottom { transform: rotateX(-90deg) translateZ(128px); }
+        } 
+           @media (max-width: 640px) {
+          .face-front  { transform: rotateY(  0deg) translateZ(112px); }
+          .face-back   { transform: rotateY(180deg) translateZ(112px); }
+          .face-right  { transform: rotateY( 90deg) translateZ(112px); }
+          .face-left   { transform: rotateY(-90deg) translateZ(112px); }
+          .face-top    { transform: rotateX( 90deg) translateZ(112px); }
+          .face-bottom { transform: rotateX(-90deg) translateZ(112px); }
+        }
+      `}</style>
+        </section>
+    );
+}

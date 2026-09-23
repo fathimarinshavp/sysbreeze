@@ -1,0 +1,63 @@
+import type { MetadataRoute } from "next";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+    const baseUrl = "https://www.sysbreeze.com";
+
+    const routes = [
+        "",
+        "/about",
+        "/contact-us",
+        "/services",
+        "/trainings",
+        "/careers",
+        "/web-development-kerala",
+        "/seo-services-kerala",
+        "/erp-software-kerala",
+        "/hr-management-services-kerala",
+        "/mobile-app-development-kerala",
+        "/branding-services-kerala",
+        "/ecommerce-development-kerala",
+        "/seo-training-course",
+        "/python-training",
+        "/digital-marketing-training",
+        "/hr-management-training-course",
+        "/artificial-intelligence-robotics-training",
+        "/data-science-certification-course",
+        "/mern-stack-development-training",
+        "/fyugp-internship-in-kerala",
+        "/frontend-developer-jobs-kerala",
+        "/ui-ux-designer-jobs-kerala",
+        "/blog/ai-in-hr-and-recruitment-what-works-what-doesnt",
+        "/blog/generative-ai-at-work-what-businesses-actually-doing",
+        "/blog/what-is-llmo-beginners-guide-ai-search-optimization",
+        "/blog/why-businesses-need-both-branding-and-digital-marketing-2026",
+        "/blog/top-tech-skills-to-learn-in-2026-ai-data-science-python-mern",
+        "/blog/how-to-become-ai-search-geo-specialist-2026",
+        "/blog/certificates-are-not-enough-build-job-winning-portfolio-2026",
+        "/blog/hr-management-services-kerala-stronger-workforce-2026",
+        "/blog/launch-freelance-digital-marketing-agency-home-2026",
+        "/blog/local-seo-small-businesses-ultimate-playbook-2026",
+        "/blog/short-form-video-seo-ranking-youtube-shorts-reels-2026",
+        "/blog/is-digital-marketing-still-a-good-career-2026",
+        "/blog/best-seo-strategies-google-ai-updates-2026",
+        "/blog/how-generative-engine-optimization-geo-replaces-seo-2026",
+        "/blog/digital-transformation-modern-businesses",
+        "/blog/agentic-ai-for-businesses-guide",
+        "/blog/cloud-vs-ai-supercomputing-platforms-guide",
+        "/blog/how-robotics-is-transforming-industries-2026",
+        "/blog/future-of-software-development-with-ai-2026",
+        "/blog/best-it-courses-after-graduation-kerala-2026",
+        "/blog/how-professional-website-increases-business-revenue",
+        "/blog/digital-marketing-vs-ai-which-skill-learn-2026",
+        "/blog",
+        "/privacy",
+        "/terms",
+    ];
+
+    return routes.map((route) => ({
+        url: `${baseUrl}${route}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: route === "" ? 1 : 0.8,
+    }));
+}
