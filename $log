@@ -1,0 +1,32 @@
+
+> sysbrese@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.4:3000
+
+✓ Starting...
+✓ Ready in 2.6s
+ GET /careers 200 in 2.8s (compile: 2.4s, render: 392ms)
+ GET /careers 200 in 126ms (compile: 10ms, render: 116ms)
+ GET / 200 in 649ms (compile: 201ms, render: 448ms)
+ GET /careers 200 in 83ms (compile: 21ms, render: 62ms)
+✓ Compiled in 203ms
+ GET /careers 200 in 123ms (compile: 56ms, render: 67ms)
+ GET /careers 200 in 230ms (compile: 9ms, render: 221ms)
+ GET /careers 200 in 216ms (compile: 12ms, render: 204ms)
+ GET /careers 200 in 34ms (compile: 9ms, render: 25ms)
+✓ Compiled in 101ms
+✓ Compiled in 149ms
+✓ Compiled in 124ms
+✓ Compiled in 179ms
+ GET /careers 200 in 457ms (compile: 106ms, render: 352ms)
+✓ Compiled in 319ms
+✓ Compiled in 255ms
+✓ Compiled in 255ms
+✓ Compiled in 135ms
+✓ Compiled in 223ms
+✓ Compiled in 114ms
+ GET /careers 200 in 75ms (compile: 10ms, render: 65ms)
+ GET /careers 200 in 203ms (compile: 10ms, render: 193ms)

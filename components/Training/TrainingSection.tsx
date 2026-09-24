@@ -133,7 +133,7 @@ export default function TrainingSection() {
 
                 {/* Scroll Carousel */}
                 <div ref={carouselRef} className="relative max-w-4xl mx-auto" style={{ height: `${n * 80}vh` }}>
-                    <div className="sticky top-0 h-screen flex flex-col items-center justify-center gap-6 overflow-hidden px-4">
+                    <div className="sticky top-0 min-h-[100svh] flex flex-col items-center justify-center gap-5 sm:gap-6 overflow-hidden px-4 py-16">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={currentIndex}
@@ -142,7 +142,7 @@ export default function TrainingSection() {
                                 exit={{ opacity: 0, y: -12 }}
                                 transition={{ duration: 0.4 }}
                                 onClick={() => router.push(currentProgram.href)}
-                                className="relative w-full max-w-3xl overflow-hidden rounded-2xl cursor-pointer border border-white/[0.07]"
+                                className="relative w-full max-w-3xl overflow-hidden rounded-2xl cursor-pointer border border-white/[0.07] flex flex-col min-h-[480px] sm:min-h-[460px] md:min-h-[480px]"
                                 style={{
                                     background: 'linear-gradient(135deg, #101018 0%, #0a0a10 55%, #0d0d14 100%)',
                                     boxShadow: '0 24px 60px -30px rgba(0, 0, 0, 0.8), 0 0 40px -10px rgba(240, 42, 168, 0.08)',
@@ -164,34 +164,36 @@ export default function TrainingSection() {
                                 </span>
 
                                 {/* Content */}
-                                <div className="relative p-7 sm:p-10 md:p-14 flex flex-col items-start gap-4">
+                                <div className="relative p-6 sm:p-10 md:p-14 flex flex-col items-start gap-3 sm:gap-4 flex-1">
                                     {/* Eyebrow */}
-                                    <div className="flex items-center gap-3 text-xs font-bold tracking-[0.25em] uppercase">
+                                    <div className="flex items-center gap-3 text-[11px] sm:text-xs font-bold tracking-[0.25em] uppercase">
                                         <span className="text-[#F02AA8]/90">{String(currentIndex + 1).padStart(2, "0")}</span>
                                         <span className="w-8 h-px bg-[#F02AA8]/30" />
                                         <span className="text-white/50">Training Program</span>
                                     </div>
 
                                     {/* Title */}
-                                    <h3 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight leading-[1.05] text-white [text-shadow:0_0_40px_rgba(240,42,168,0.15)]">
+                                    <h3 className="text-[1.65rem] leading-[1.1] sm:text-4xl md:text-5xl font-black uppercase tracking-tight sm:leading-[1.05] text-white [text-shadow:0_0_40px_rgba(240,42,168,0.15)] min-h-[3.6rem] sm:min-h-[2.6em] flex items-center text-balance">
                                         {currentProgram.label}
                                     </h3>
 
                                     {/* Tagline */}
-                                    <p className="text-[#F02AA8]/50 text-xs sm:text-sm uppercase tracking-[0.15em] font-semibold">
+                                    <p className="text-[#F02AA8]/50 text-[11px] sm:text-sm uppercase tracking-[0.15em] font-semibold min-h-[2.5rem] sm:min-h-[1.5rem] flex items-center">
                                         {currentProgram.tagline}
                                     </p>
 
                                     {/* Description */}
-                                    <p className="text-white/70 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl pt-1">
+                                    <p className="text-white/70 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl pt-1 min-h-[7.5rem] sm:min-h-[5.5rem] md:min-h-[5rem]">
                                         {currentProgram.description}
                                     </p>
 
                                     {/* CTA */}
-                                    <button className="group mt-3 inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest text-[#F02AA8]/90 border border-[#F02AA8]/25 hover:bg-[#F02AA8]/10 hover:border-[#F02AA8]/40 transition-colors duration-300">
+                                    <div className="mt-auto pt-4">
+                                    <button className="group inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest text-[#F02AA8]/90 border border-[#F02AA8]/25 hover:bg-[#F02AA8]/10 hover:border-[#F02AA8]/40 transition-colors duration-300">
                                         Explore Program
                                         <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                                     </button>
+                                    </div>
                                 </div>
                             </motion.div>
                         </AnimatePresence>
@@ -222,7 +224,7 @@ export default function TrainingSection() {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1, duration: 0.5 }}
-                                className="flex flex-col items-center gap-2"
+                                className="hidden sm:flex flex-col items-center gap-2"
                             >
                                 <motion.div
                                     animate={{ y: [0, 8, 0] }}
@@ -258,10 +260,10 @@ export default function TrainingSection() {
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.1 }}
-                            className="flex flex-col items-center gap-3 p-5 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-white/15 transition-colors duration-300"
+                            className="flex flex-col items-center justify-center text-center gap-3 p-4 sm:p-5 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-white/15 transition-colors duration-300 min-h-[112px] sm:min-h-[124px]"
                         >
                             <i className={`fa-solid ${item.icon} text-xl text-white/50`} />
-                            <span className="text-[11px] uppercase tracking-[0.16em] font-bold text-center text-zinc-500">{item.text}</span>
+                            <span className="text-[11px] uppercase tracking-[0.16em] font-bold text-center leading-tight text-zinc-500">{item.text}</span>
                         </motion.div>
                     ))}
                 </div>
